@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "lot">
+     
+    <resultMap id = "resultLot" type = "kursach.model.Lot"> 
+       <result property = "id" column = "id"/> 
+       <result property = "name" column = "name"/> 
+       <result property = "description" column = "description"/>
+       <result property = "first_price" column = "first_price"/>
+       <result property = "last_price" column = "last_price"/>
+       <result property = "first_time" column = "first_time"/> 
+       <result property = "last_time" column = "last_time"/> 
+       <result property = "image" column = "image"/> 
+    </resultMap> 
+
+    <select id = "selectAll" resultMap = "resultLot"> 
+       SELECT * FROM lot;  
+    </select> 
+ 
+    <select id = "selectById" parameterType = "int" resultMap = "resultLot"> 
+       SELECT * FROM lot WHERE id = #{id}; 
+    </select> 
+    
+    <insert id = "insert" parameterType = "kursach.model.Lot"> 
+       INSERT INTO news 
+            (id, 
+             name,
+             description,
+             first_price,
+             last_price,
+             first_time,
+             last_time,
+             image)  
+       VALUES 
+            (#{id}, 
+             #{name}, 
+             #{description},
+             #{first_price},
+             #{last_price},
+             #{first_time},
+             #{last_time},
+             #{image});     
+    </insert>
+    
+    <update id = "update" parameterType = "kursach.model.Lot"> 
+       UPDATE lot SET 
+        name = #{name}, 
+        description = #{description},
+        first_price = #{first_price},
+        last_price = #{last_price},
+        first_time = #{first_time},
+        last_time = #{last_time},
+        image = #{image}
+        WHERE id = #{id}; 
+    </update>
+
+    <delete id = "deleteByLot" parameterType = "kursach.model.Lot"> 
+       DELETE from lot WHERE id = #{id}; 
+    </delete>
+</mapper> 

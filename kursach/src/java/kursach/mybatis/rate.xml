@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "rate">
+    
+    <resultMap id = "resultRate" type = "kursach.model.Rate"> 
+       <result property = "id" column = "id"/> 
+       <result property = "name" column = "name"/> 
+       <result property = "login" column = "login"/>
+       <result property = "price" column = "price"/>
+       <result property = "time" column = "time"/> 
+       <collection property="lot" javaType="List"  ofType="kursach.model.Lot" column="id" select="selectLot"/>
+    </resultMap> 
+
+    <select id = "selectAll" resultMap = "resultRate"> 
+        SELECT * FROM rate;  
+    </select> 
+ 
+    <select id = "selectById" parameterType = "int" resultMap = "resultRate"> 
+        SELECT * FROM rate WHERE id = #{id}; 
+    </select> 
+    
+   <select id="selectLot" parameterType="int" resultMap="lot.resultLot">  
+        select * from lot where rate_id= #{id}
+   </select>
+</mapper> 
+

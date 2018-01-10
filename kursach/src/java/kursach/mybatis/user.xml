@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace = "user">
+    
+    <resultMap id = "resultUser" type = "kursach.model.User"> 
+       <result property = "id" column = "id"/> 
+       <result property = "login" column ="login"/> 
+       <result property = "password" column = "password"/> 
+        <collection property="lot" javaType="List"  ofType="kursach.model.Lot" column="id" select="selectLot"/>
+    </resultMap> 
+
+    <select id = "selectAll" resultMap = "resultUser"> 
+       SELECT * FROM user;  
+    </select> 
+ 
+    <select id = "selectById" parameterType = "int" resultMap = "resultUser"> 
+       SELECT * FROM user WHERE id = #{id}; 
+    </select> 
+    
+    <insert id = "insert" parameterType = "kursach.model.User"> 
+       INSERT INTO user (id, login, password)  
+       VALUES (#{id}, #{login}, #{password});     
+    </insert>
+    
+    <update id = "update" parameterType = "kursach.model.User"> 
+       UPDATE user SET 
+        login = #{login}, 
+        password = #{password} 
+        WHERE id = #{id}; 
+    </update>
+
+    <delete id = "deleteByUser" parameterType = "kursach.model.User"> 
+       DELETE from user WHERE id = #{id}; 
+    </delete>
+    
+    <select id="selectLot" parameterType="int" resultMap="lot.resultLot">  
+        select * from lot where user_id= #{id}
+   </select>
+</mapper> 
